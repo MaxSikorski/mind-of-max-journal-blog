@@ -1,11 +1,22 @@
 # Mind of Max
 
 My personal blog for all things I'm interested in. 
+
 Read my lastest posts here👇
+
 https://maxsikorski.github.io/mind-of-max-journal-blog/
 
-
-A minimal, premium personal blog built with **Serverless** web technologies.
+<br>
+<br>
+<br>
+<br>
+Will be posting to Nostr first; stay tuned for updates
+<br>
+<br>
+<br>
+<br>
+<br>
+A minimal, premium personal blog built with **Serverless** web tech.
 
 This is a **Single Page Application (SPA)** that runs directly on GitHub Pages. It uses a registry file (`posts.json`) to manage content and fetches Markdown files dynamically.
 
