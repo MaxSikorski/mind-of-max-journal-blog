@@ -1,6 +1,11 @@
 # Mind of Max
 
-A minimal, premium personal blog built with **No-Build** web technologies.
+My personal blog for all things I'm interested in. 
+Read my lastest posts here👇
+https://maxsikorski.github.io/mind-of-max-journal-blog/
+
+
+A minimal, premium personal blog built with **Serverless** web technologies.
 
 This is a **Single Page Application (SPA)** that runs directly on GitHub Pages. It uses a registry file (`posts.json`) to manage content and fetches Markdown files dynamically.
 
