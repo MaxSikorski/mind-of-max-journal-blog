@@ -1,6 +1,6 @@
 # The Future of Robotics: Home Labs and DIY in the Next Decade
 
-The next ten years will fundamentally transform what's possible in your garage, basement, or spare bedroom. **Home robotics** is no longer a niche hobby—it's becoming a legitimate pathway to innovation, entrepreneurship, and personal manufacturing capability.
+The next five years will fundamentally transform what's possible in your garage, basement, or spare bedroom. **Home robotics** is no longer a niche hobby—it's becoming a legitimate pathway to innovation, entrepreneurship, and personal manufacturing capability.
 
 ## The Democratization of Motion Control
 
@@ -34,12 +34,12 @@ Imagine running a training loop on your workstation while you sleep, then deploy
 
 The lines between **3D printing**, **CNC machining**, and **robotics** are blurring. The next generation of home labs will feature:
 
-| Capability | 2026 | 2035 |
+| Capability | 2026 | 2030 |
 |------------|------|------|
-| Multi-material 3D printing | Experimental | Standard |
-| Desktop 5-axis CNC | $10,000+ | $2,000 |
+| True Multi-material 3D printing | Experimental | Standard |
+| Desktop 5-axis CNC | $10,000+ | $999 |
 | Pick-and-place automation | DIY kits | Plug-and-play |
-| Collaborative robot arms | $5,000+ | $800 |
+| Collaborative 6-axis robot arms | $5,000+ | $500 |
 
 ## The Open Source Ecosystem
 
@@ -53,18 +53,19 @@ The real accelerant is **community**. Projects like:
 
 ## What You Should Be Learning Now
 
-If you want to be ahead of the curve in 2035, focus on:
+If you want to be ahead of the curve in 2030, focus on:
 
-1. **CAD/CAM fluency** — Fusion 360, FreeCAD, or SolidWorks
+1. **CAD/CAM fluency** — Autodesk Fusion, FreeCAD (Self-hosted & FOSS), or SolidWorks
 2. **Embedded systems** — ESP32, STM32, and real-time control
 3. **Python + ROS 2** — The lingua franca of robotics
 4. **Basic ML/AI** — At minimum, how to fine-tune and deploy models
 5. **Power electronics** — Motor drivers, battery management, safety systems
+5. **VL-JEPA** (my personal focus now)— Completely rethinking how AI inference is done locally through vision rather than through transformers and tokens.
 
 ## The Bottom Line
 
 We're entering an era where a motivated individual with a few thousand dollars can build machines that would have required a university lab a decade ago. The barrier isn't money anymore—it's **knowledge and persistence**.
 
-The home lab of 2035 won't just prototype. It will **manufacture, automate, and iterate** faster than many small companies can today.
+The home lab of 2030 won't just prototype. It will **manufacture, automate, and iterate** faster than many small companies can today.
 
 The future of robotics isn't just in factories. It's in your garage.
