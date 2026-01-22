@@ -1,4 +1,15 @@
 [
+    {
+    "title": "The Trojan Horse: Protecting the Future of Open Manufacturing",
+    "date": "Jan 22, 2026",
+    "filename": "trojan-horse-manufacturing.md",
+    "tags": [
+      "Manufacturing",
+      "Privacy",
+      "3D Printing",
+      "Open Source"
+    ]
+  },
   {
     "title": "The Future of Robotics",
     "date": "Jan 22, 2026",
@@ -17,17 +28,6 @@
       "Investing",
       "Engineering",
       "Philosophy"
-    ]
-  },
-  {
-    "title": "The Trojan Horse: Protecting the Future of Open Manufacturing",
-    "date": "Jan 18, 2026",
-    "filename": "trojan-horse-manufacturing.md",
-    "tags": [
-      "Manufacturing",
-      "Privacy",
-      "3D Printing",
-      "Open Source"
     ]
   }
 ]
