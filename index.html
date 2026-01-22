@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind of Max | Journal</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #0f172a;
+            --secondary: #64748b;
+            --border: #e2e8f0;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --card-bg: #ffffff;
+            --hover-bg: #f8fafc;
+            --code-bg: #f1f5f9;
+        }
+
+        [data-theme="dark"] {
+            --bg: #0f1117;
+            --text: #e2e8f0;
+            --secondary: #94a3b8;
+            --border: #1e293b;
+            --accent: #60a5fa;
+            --accent-hover: #93c5fd;
+            --card-bg: #1e293b;
+            --hover-bg: #1e293b;
+            --code-bg: #020617;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            margin: 0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        h1.logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: -0.025em;
+            cursor: pointer;
+            color: var(--text);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        #theme-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--secondary);
+            padding: 6px 16px;
+            cursor: pointer;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            font-family: inherit;
+            transition: all 0.2s;
+        }
+
+        #theme-toggle:hover {
+            border-color: var(--text);
+            color: var(--text);
+        }
+
+        /* SEARCH & FILTER */
+        .controls {
+            margin-bottom: 3rem;
+        }
+
+        #search-input {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
+            font-size: 1rem;
+            outline: none;
+            font-family: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        #search-input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+        }
+
+        .tag-container {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            padding: 4px 14px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+            color: var(--secondary);
+            background: var(--bg);
+        }
+
+        .tag.active {
+            background: var(--text);
+            color: var(--bg);
+            border-color: var(--text);
+        }
+
+        .tag:hover:not(.active) {
+            background: var(--hover-bg);
+            border-color: var(--secondary);
+        }
+
+        /* POST LIST */
+        .post-entry {
+            margin-bottom: 0;
+            cursor: pointer;
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border);
+            display: block;
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+
+        .post-entry:first-child {
+            padding-top: 0;
+        }
+
+        .post-entry:last-child {
+            border-bottom: none;
+        }
+
+        .post-entry:hover {
+            opacity: 0.8;
+        }
+
+        .post-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--secondary);
+        }
+
+        .post-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin: 0.2rem 0 0.8rem 0;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+            color: var(--text);
+        }
+
+        .post-tags-list {
+            display: flex;
+            gap: 8px;
+        }
+
+        .post-tag-item {
+            font-size: 0.75rem;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        /* ARTICLE VIEW */
+        #content-view {
+            display: none;
+        }
+
+        .back-nav {
+            margin-bottom: 3rem;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: var(--secondary);
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+            transition: color 0.2s;
+        }
+
+        .back-btn:hover {
+            color: var(--accent);
+        }
+
+        #post-detail {
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* MARKDOWN STYLES */
+        .markdown-body h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .markdown-body h2 {
+            font-size: 1.8rem;
+            margin-top: 2.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .markdown-body h3 {
+            font-size: 1.4rem;
+            margin-top: 2rem;
+        }
+
+        .markdown-body p {
+            margin-bottom: 1.5rem;
+            color: var(--text);
+            opacity: 0.9;
+        }
+
+        .markdown-body strong {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .markdown-body ul {
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .markdown-body li {
+            margin-bottom: 0.5rem;
+            padding-left: 0.5rem;
+        }
+
+        .markdown-body blockquote {
+            border-left: 4px solid var(--accent);
+            margin: 2rem 0;
+            padding: 0.5rem 0 0.5rem 1.5rem;
+            font-style: italic;
+            color: var(--secondary);
+            background: var(--hover-bg);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .markdown-body code {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--code-bg);
+            padding: 0.2em 0.4em;
+            border-radius: 4px;
+            font-size: 0.85em;
+            color: var(--accent);
+        }
+
+        .markdown-body pre {
+            background: var(--code-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            margin: 2rem 0;
+        }
+
+        .markdown-body pre code {
+            background: none;
+            padding: 0;
+            color: inherit;
+            font-size: 0.9em;
+        }
+
+        .markdown-body img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin: 2rem 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .loading {
+            color: var(--secondary);
+            text-align: center;
+            padding: 4rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <div class="logo" onclick="navigateTo('')">Mind of Max</div>
+            <button id="theme-toggle">Dark Mode</button>
+        </header>
+
+        <div id="list-view">
+            <div class="controls">
+                <input type="text" id="search-input" placeholder="Search..." oninput="handleSearch()">
+                <div class="tag-container" id="tag-cloud"></div>
+            </div>
+            <div id="post-list"></div>
+        </div>
+
+        <div id="content-view">
+            <div class="back-nav">
+                <button class="back-btn" onclick="navigateTo('')">← Back to Articles</button>
+            </div>
+            <article id="post-detail" class="markdown-body"></article>
+        </div>
+    </div>
+
+    <script>
+        let allPosts = [];
+        let activeTags = new Set();
+        let searchQuery = "";
+
+        // Router
+        window.addEventListener('hashchange', router);
+        window.addEventListener('load', router);
+
+        async function router() {
+            const hash = window.location.hash;
+            if (hash.startsWith('#article/')) {
+                const slug = hash.replace('#article/', '');
+                // Append .md for the file fetch if it's not present (clean URLs)
+                const filename = slug.endsWith('.md') ? slug : slug + '.md';
+                await loadPostView(filename);
+            } else {
+                showListView();
+            }
+        }
+
+        function navigateTo(path) {
+            if (!path) {
+                // Reset to clean home state
+                window.location.hash = '';
+                document.getElementById('search-input').value = '';
+                searchQuery = '';
+                activeTags.clear();
+                renderTags();
+                renderPosts();
+            } else {
+                window.location.hash = path;
+            }
+        }
+
+        // Embedded posts data (works offline/locally without CORS issues)
+        const EMBEDDED_POSTS = [
+            {
+                "title": "The Future of Robotics",
+                "date": "Jan 22, 2026",
+                "filename": "future-of-robotics.md",
+                "tags": ["Robotics", "Manufacturing", "AI"]
+            },
+            {
+                "title": "The Convergence of Systems: Investing and Engineering",
+                "date": "Jan 22, 2026",
+                "filename": "investing-systems.md",
+                "tags": ["Investing", "Engineering", "Philosophy"]
+            },
+            {
+                "title": "The Trojan Horse: Protecting the Future of Open Manufacturing",
+                "date": "Jan 18, 2026",
+                "filename": "trojan-horse-manufacturing.md",
+                "tags": ["Manufacturing", "Privacy", "3D Printing", "Open Source"]
+            }
+        ];
+
+        async function init() {
+            try {
+                // Try fetching posts.json (works on servers/GitHub Pages)
+                const response = await fetch('posts.json');
+                if (!response.ok) throw new Error("Failed to load registry");
+                allPosts = await response.json();
+            } catch (e) {
+                // Fallback to embedded data (works locally with file://)
+                console.log("Using embedded posts data (local/offline mode)");
+                allPosts = EMBEDDED_POSTS;
+            }
+
+            renderTags();
+            renderPosts();
+        }
+
+        function renderTags() {
+            const tags = new Set();
+            allPosts.forEach(p => p.tags.forEach(t => tags.add(t)));
+            const container = document.getElementById('tag-cloud');
+
+            let html = `<span class="tag ${activeTags.size === 0 ? 'active' : ''}" onclick="filterByTag(null)">All</span>`;
+            [...tags].sort().forEach(tag => {
+                const isSelected = activeTags.has(tag);
+                html += `<span class="tag ${isSelected ? 'active' : ''}" onclick="filterByTag('${tag}')">${tag}</span>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function handleSearch() {
+            searchQuery = document.getElementById('search-input').value.toLowerCase();
+            renderPosts();
+        }
+
+        function filterByTag(tag) {
+            if (!tag) activeTags.clear();
+            else activeTags.has(tag) ? activeTags.delete(tag) : activeTags.add(tag);
+            renderTags();
+            renderPosts();
+        }
+
+        function renderPosts() {
+            const container = document.getElementById('post-list');
+            const filtered = allPosts.filter(post => {
+                const matchesTags = activeTags.size === 0 || [...activeTags].every(t => post.tags.includes(t));
+                const matchesSearch = post.title.toLowerCase().includes(searchQuery) ||
+                    post.tags.some(t => t.toLowerCase().includes(searchQuery));
+                return matchesTags && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="loading">No articles found.</div>`;
+                return;
+            }
+
+            container.innerHTML = filtered.map(post => {
+                // Create clean slug by removing .md extension
+                const slug = post.filename.replace('.md', '');
+                return `
+            <div class="post-entry" onclick="navigateTo('#article/${slug}')">
+                <div class="post-meta">
+                    <span>${post.date}</span>
+                </div>
+                <div class="post-title">${post.title}</div>
+                <div class="post-tags-list">
+                    ${post.tags.map(t => `<span class="post-tag-item">#${t}</span>`).join('')}
+                </div>
+            </div>
+            `;
+            }).join('');
+        }
+
+        // Embedded markdown content for offline/local viewing
+        const EMBEDDED_CONTENT = {
+            "future-of-robotics.md": `# The Future of Robotics: Home Labs and DIY in the Next Decade
+
+The next ten years will fundamentally transform what's possible in your garage, basement, or spare bedroom. **Home robotics** is no longer a niche hobby—it's becoming a legitimate pathway to innovation, entrepreneurship, and personal manufacturing capability.
+
+## The Democratization of Motion Control
+
+For decades, precision motion control was locked behind industrial price tags. A single servo motor with closed-loop feedback could cost thousands. That's changing rapidly.
+
+**What's driving the shift:**
+- **FOC (Field-Oriented Control)** motor drivers under $20
+- **ODrive** and open-source motor controllers
+- **Brushless motors** from the drone industry flooding the market at commodity prices
+- **Harmonic drives and cycloidal reducers** becoming accessible through 3D printing
+
+By 2030, expect to build a 6-axis robotic arm with sub-millimeter repeatability for under $500 in parts.
+
+## AI at the Edge: The Real Game Changer
+
+The marriage of **affordable compute** and **open-source AI models** is where the magic happens. We're already seeing:
+
+- **Real-time object detection** on $35 Raspberry Pi boards
+- **Large Language Models** running locally on consumer GPUs
+- **Reinforcement learning** frameworks that can train robot behaviors overnight
+
+### The Home Lab Advantage
+
+Unlike corporate R&D, home labs have something invaluable: **freedom to experiment**. No procurement cycles. No safety committees for low-risk prototypes. No quarterly reports.
+
+\\\`\\\`\\\`python
+# The future is training your robot while you sleep
+from stable_baselines3 import PPO
+
+model = PPO("MlpPolicy", env, verbose=1)
+model.learn(total_timesteps=100_000)
+model.save("my_robot_brain")
+\\\`\\\`\\\`
+
+## Manufacturing Convergence
+
+The lines between **3D printing**, **CNC machining**, and **robotics** are blurring.
+
+## The Open Source Ecosystem
+
+The real accelerant is **community**. Projects like ROS 2, MoveIt, Hugging Face, and Printables are creating a shared foundation that compounds year over year.
+
+## The Bottom Line
+
+We're entering an era where a motivated individual with a few thousand dollars can build machines that would have required a university lab a decade ago. The barrier isn't money anymore—it's **knowledge and persistence**.
+
+The future of robotics isn't just in factories. It's in your garage.`,
+
+            "investing-systems.md": `# The Convergence of Systems: Investing and Engineering
+
+Welcome to my journal. This space is dedicated to exploring the intersection of value investing, robotics, and manufacturing. As **Ray Dalio** suggests, "Principles are ways of successfully dealing with reality to get what you want out of life." This blog is my process for documenting those principles.
+
+## The Strategy
+Whether it's a **Buffett-style** moat or a perfectly tuned **3D printer**, the goal is the same: reducing entropy and maximizing output.
+
+### Technical Analysis
+If I'm sharing code or robotics data, it looks like this:
+\`\`\`python
+def compound_interest(p, r, t):
+    # Systemic growth formula
+    return p * (1 + r)**t
+\`\`\``,
+
+            "trojan-horse-manufacturing.md": `## **The Trojan Horse: Protecting the Future of Open Manufacturing**
+
+The freedom to create is under a new kind of siege. While presented as a public safety measure, **Washington House Bill 2321** represents a fundamental shift in how we interact with technology, threatening the very foundations of **open-source manufacturing**, digital privacy, and our **First Amendment rights** to express ourselves through code and geometry.
+
+### **The Mandate: Monitoring the "Geometric DNA"**
+At its core, HB 2321 requires that by **July 1, 2027**, every 3D printer sold in Washington must be equipped with "blocking features". These features are not simple file-name filters; they utilize a **firearms blueprint detection algorithm** to identify and reject prohibited shapes with a "high degree of reliability".
+
+This technology relies on **"Geometric DNA,"** analyzing the actual structure of a 3D model rather than its metadata. To function, your printer would need to:
+*   **Phone Home:** Connect to a government-managed server to receive updates on "banned" shapes.
+*   **Handshake Authentication:** Validate that the slicer software is "authorized," effectively locking out independent or older versions of software like Cura or Orca Slicer.
+*   **Eliminate Root Access:** The bill mandates that these features cannot be overridden by users with "significant technical skill," potentially making **open-source firmware** like Marlin or Clipper illegal to install on new machines.
+
+### **Code is Law: The First Amendment and the Right to Make**
+The making community operates on a core philosophy: **Code is Speech**. In 2018, legal settlements established that digital blueprints are a form of protected expression. When a designer creates a 3D model, they are translating an idea from their mind into a geometric language—blocking the ability to "print" that language is a direct violation of **creative expression**.
+
+As makers, we believe that we should have the right to manufacture whatever our minds choose to create, provided it follows the ethos of our community: **benefit the local and global collective and do no harm**. 3D printing has enabled massive humanitarian efforts, such as the "Christmas print drive" that provided toys to over 5,000 children in hospitals and shelters. This innovation is only possible when the tools are open and accessible.
+
+### **The Destruction of Open-Source Ecosystems**
+The scope of this bill is dangerously broad. It defines a "3D printer" as any machine capable of **additive or subtractive manufacturing**. This means the same "spyware" requirements could soon apply to:
+*   **CNC Machines and Lathes**
+*   **Laser Cutters and Water Jets**
+*   **Home-built Kits (Voron, RatRig, etc.):** States could sue kit manufacturers into oblivion by claiming they violate the "spirit of the law" by providing non-compliant parts.
+
+By requiring machines to be "un-tamperable," the law effectively criminalizes the use of **Free and Open-Source Software (FOSS)**. If you cannot modify the code on the machine you own, you don't truly own it—you are merely "renting" the right to use it from the manufacturer and the state.
+
+### **The Corporate Slippery Slope: DRM for the Physical World**
+While the current focus is on firearms, the infrastructure being built is a **Trojan horse for corporate censorship**. Once a government-controlled "blacklist" of shapes exists, it is only a matter of time before major corporations lobby to add their own **Intellectual Property (IP)** to the list.
+
+Imagine a world where:
+*   **The "Mouse" (Disney)** blocks you from printing a fan-art superhero bust for your child.
+*   **Auto Manufacturers (Ford or John Deere)** prevent you from printing a replacement plastic clip for your tractor or truck, forcing you to buy the "official" part at a massive markup.
+*   **Planned Obsolescence:** Manufacturers could use the "safety" excuse to brick older printers that cannot support the latest "AI detection" algorithms, forcing you into a 1-to-3-year upgrade cycle.
+
+### **A Call to Action for the Global Community**
+We must change the narrative. 3D printing is about **innovation, repair, and education**, not the "movie plot" scenarios used to justify these laws. The "ghost gun" crisis is often exaggerated by including traditional firearms with scratched-off serial numbers, rather than 3D-printed ones, which are statistically rare in actual crimes.
+
+**What you can do:**
+1.  **Educate your representatives:** Politely explain that you are an engineer, a hobbyist, or a creator.
+2.  **Protect Privacy:** Reject hardware that requires an internet "handshake" or removes root access.
+3.  **Support Open Source:** Advocate for the right to use and modify the software on the machines you pay for.
+
+We have the right to pull an idea out of our imagination and hold it in our hands. Let's ensure that the tools of the future remain **free, open, and in our control.**`
+        };
+
+        async function loadPostView(filename) {
+            // Switch to content view immediately to prevent flicker
+            document.getElementById('list-view').style.display = 'none';
+            document.getElementById('content-view').style.display = 'block';
+            window.scrollTo(0, 0);
+
+            const detailEl = document.getElementById('post-detail');
+            detailEl.innerHTML = '<div class="loading">Loading...</div>';
+
+            let md = null;
+
+            try {
+                // Try fetching from server (works on GitHub Pages)
+                const response = await fetch(`posts/${filename}`);
+                if (!response.ok) throw new Error("Post not found");
+                md = await response.text();
+            } catch (e) {
+                // Fallback to embedded content (works locally with file://)
+                console.log("Using embedded content (local/offline mode)");
+                md = EMBEDDED_CONTENT[filename];
+            }
+
+            if (md) {
+                detailEl.innerHTML = marked.parse(md);
+            } else {
+                detailEl.innerHTML = '<div class="loading">Article not found.</div>';
+            }
+        }
+
+        function showListView() {
+            document.getElementById('content-view').style.display = 'none';
+            document.getElementById('list-view').style.display = 'block';
+
+            // If we haven't loaded posts yet (fresh load on homepage), do it
+            if (allPosts.length === 0) init();
+        }
+
+        // Theme Management
+        const toggle = document.getElementById('theme-toggle');
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const savedTheme = localStorage.getItem('theme');
+
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            toggle.innerText = 'Light Mode';
+        }
+
+        toggle.addEventListener('click', () => {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            const newTheme = isDark ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            toggle.innerText = isDark ? 'Dark Mode' : 'Light Mode';
+        });
+
+        // Start
+        // The 'load' event listener covers the initial router call
+    </script>
+</body>
+
+</html>
