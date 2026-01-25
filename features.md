@@ -1,5 +1,8 @@
 # My list of features to add in the future to improve my blog #
 
+<br>
+<br>
+
 
 • I'd like to be able to make the page somehow interactive for readers so they can easily go and favorite which ones they like. Maybe even in a future place be able to comment on the posts.
 <br>
