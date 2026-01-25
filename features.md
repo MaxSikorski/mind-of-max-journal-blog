@@ -4,7 +4,8 @@
 • I'd like to be able to make the page somehow interactive for readers so they can easily go and favorite which ones they like. Maybe even in a future place be able to comment on the posts.
 <br>
 • I also want to make sure that I am posting all this to my NPUB first, and then it gets relayed over to this GitHub page.
-
+<br>
+• Also I want to make sure that I can add images and video and other links to each part of the blog and obviously a sources page in the footer, so I can easily go and have readers be able to find the exact sources based on what I wrote the blog on.
 <br>
 <br>
 
