@@ -8,7 +8,7 @@ If we want to achieve 1,000x improvements in inference efficiency while reducing
 
 ## 1. The Energy-Inference Paradox
 
-In the United States, we are facing an energy deployment crisis. We cannot simply "build more generators" to satisfy a 176GW demand. The solution is not more energy; it is **Thermodynamic Efficiency.**
+In the United States, we are facing an energy deployment crisis. We cannot simply "build more generators" to satisfy a 176GW demand (AI specific). The solution is not more energy; it is **Thermodynamic Efficiency.**
 
 Today's GPUs are "Swiss Army Knives." Like the CPUs of the early Bitcoin era (2010), they are general-purpose and wasteful. To solve the energy bottleneck, we must move toward **Inference-Specific ASICs**. I have seen this cycle before—from 2012 Bitcoin mining to the present—and the winner is always the one who strips away the overhead of general-purpose logic.
 
