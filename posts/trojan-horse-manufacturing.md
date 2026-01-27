@@ -1,4 +1,4 @@
-## **The Trojan Horse: Protecting the Future of Open Manufacturing**
+# **The Trojan Horse: Protecting the Future of Open Manufacturing**
 
 The freedom to create is under a new kind of siege. While presented as a public safety measure, **Washington House Bill 2321** represents a fundamental shift in how we interact with technology, threatening the very foundations of **open-source manufacturing**, digital privacy, and our **First Amendment rights** to express ourselves through code and geometry.
 
