@@ -1,6 +1,6 @@
 # The Physical Wall: Why 1,000x Inference Requires a Return to Thermodynamic Reality
 
-**By Maxwell Sikorski**
+
 
 The AI industry is currently navigating a "Jagged Frontier." We have cracked the scaling laws for language, but we are hitting a physical wall. As of early 2026, the cost of a single inference remains tethered to a GPU-heavy architecture that was never designed for the scale of the "Economic Machine."
 
